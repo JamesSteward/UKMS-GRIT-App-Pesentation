@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRIT App - UK Market Sizing Analysis</title>
+    <meta name="description" content="Comprehensive market analysis for GRIT App's UK primary school rollout targeting Years 5-6 children preparing for secondary transition">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #032717;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            background: #032717;
+            margin-right: 2px;
+            position: relative;
+            color: white;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .key-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 5px solid white;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .bullet-points {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .bullet-points li {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: white;
+            line-height: 1.4;
+        }
+
+        .bullet-points strong {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        .market-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .breakdown-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border-top: 4px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .breakdown-section h4 {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .breakdown-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            max-width: 800px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box p {
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .github-footer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 1000;
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .key-stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .market-breakdown {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .slide-dots {
+                order: -1;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media print {
+            .navigation, .fullscreen-btn, .github-footer {
+                display: none;
+            }
+            
+            .slide-container {
+                transform: none !important;
+            }
+            
+            .slide {
+                min-width: auto;
+                height: auto;
+                page-break-after: always;
+                margin-right: 0;
+                background: white !important;
+                color: black !important;
+            }
+
+            h1, h2, h3 {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+    
+    <div class="slide-container" id="slideContainer">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="slide-number">1/6</div>
+            <h1>GRIT App</h1>
+            <p class="subtitle">UK Market Sizing Analysis<br>Primary School Readiness for Secondary Transition</p>
+            <div class="highlight-box">
+                <h3>Market Research Overview</h3>
+                <p>Comprehensive analysis of the UK primary education market for children aged 9-11 preparing for secondary school transition</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Market Overview -->
+        <div class="slide">
+            <div class="slide-number">2/6</div>
+            <h2>UK Primary Education Market</h2>
+            <div class="key-stats">
+                <div class="stat-box">
+                    <span class="stat-number">9M+</span>
+                    <span class="stat-label">Total UK School Children</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">4.5M</span>
+                    <span class="stat-label">Primary School Pupils</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">20,739</span>
+                    <span class="stat-label">Primary Schools</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">43,500</span>
+                    <span class="stat-label">Headteachers (Decision Makers)</span>
+                </div>
+            </div>
+            <p class="subtitle">Source: UK Department for Education, January 2025</p>
+        </div>
+
+        <!-- Slide 3: Target Market -->
+        <div class="slide">
+            <div class="slide-number">3/6</div>
+            <h2>GRIT App Target Market</h2>
+            <p class="subtitle">Focus: Key Stage 2, Years 5-6 (Ages 9-11)</p>
+            <div class="key-stats">
+                <div class="stat-box">
+                    <span class="stat-number">1.3M</span>
+                    <span class="stat-label">Year 5-6 Children<br>(Core Target Users)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">21,000</span>
+                    <span class="stat-label">Primary School Heads<br>(Decision Makers)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">100,000+</span>
+                    <span class="stat-label">Key Stage 2 Teachers<br>(Influencers)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">1.3M</span>
+                    <span class="stat-label">Parent Households<br>(Stakeholders)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Extended Market -->
+        <div class="slide">
+            <div class="slide-number">4/6</div>
+            <h2>Extended Market Opportunity</h2>
+            <div class="market-breakdown">
+                <div class="breakdown-section">
+                    <h4>Special Educational Needs</h4>
+                    <p><strong>18.2%</strong> of primary pupils have SEN support</p>
+                    <p><strong>Growing market:</strong> Increased from 17.1% in 2024</p>
+                    <p>Additional opportunity in special schools serving primary-age children</p>
+                </div>
+                <div class="breakdown-section">
+                    <h4>Alternative Provision</h4>
+                    <p><strong>7,000</strong> primary-age pupils in AP settings</p>
+                    <p><strong>74%</strong> of AP pupils are aged 8-10</p>
+                    <p>Higher likelihood of returning to mainstream education</p>
+                </div>
+                <div class="breakdown-section">
+                    <h4>Market Trends</h4>
+                    <p><strong>Demographic shift:</strong> Primary population declining 5% to 2030</p>
+                    <p><strong>Transition focus:</strong> Year 6 SATs prepare for secondary readiness</p>
+                </div>
+                <div class="breakdown-section">
+                    <h4>Geographic Distribution</h4>
+                    <p><strong>England:</strong> Largest market concentration</p>
+                    <p><strong>Devolved systems:</strong> Scotland, Wales, Northern Ireland</p>
+                    <p><strong>Academy schools:</strong> 47% of primary population</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Strategic Advantages -->
+        <div class="slide">
+            <div class="slide-number">5/6</div>
+            <h2>Strategic Market Advantages</h2>
+            <ul class="bullet-points">
+                <li><strong>Highly Targeted Market:</strong> Clear focus on Years 5-6 transition preparation</li>
+                <li><strong>Concentrated Decision-Making:</strong> ~21,000 primary headteachers control market access</li>
+                <li><strong>Natural Implementation Point:</strong> Year 6 SATs create readiness assessment opportunity</li>
+                <li><strong>Growing SEN Opportunity:</strong> 18.2% of primary pupils need additional support</li>
+                <li><strong>Proven Transition Need:</strong> All Year 6 pupils must transition to secondary at age 11</li>
+                <li><strong>No Direct Competitors:</strong> Unique solution in the market space</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Market Summary -->
+        <div class="slide">
+            <div class="slide-number">6/6</div>
+            <h2>Market Opportunity Summary</h2>
+            <div class="highlight-box">
+                <h3>Total Addressable Market</h3>
+                <p><strong>1.3 million</strong> children preparing for secondary school transition annually</p>
+            </div>
+            <div class="key-stats">
+                <div class="stat-box">
+                    <span class="stat-number">B2B</span>
+                    <span class="stat-label">21,000 Primary Schools<br>Headteacher Sign-off Required</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">B2C</span>
+                    <span class="stat-label">1.3M Parent Households<br>Multi-stakeholder Engagement</span>
+                </div>
+            </div>
+            <p class="subtitle"><strong>Next Steps:</strong> Cost analysis, competitive positioning, and go-to-market strategy development</p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <div class="slide-dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+            <span class="dot" onclick="currentSlide(6)"></span>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <div class="github-footer">
+        GRIT App Market Analysis • Powered by GitHub Pages
+    </div>
+
+    <script>
+        let currentSlideIndex = 1;
+        const totalSlides = 6;
+
+        function showSlide(n) {
+            if (n > totalSlides) currentSlideIndex = 1;
+            if (n < 1) currentSlideIndex = totalSlides;
+            
+            const container = document.getElementById('slideContainer');
+            const translateX = -(currentSlideIndex - 1) * 100;
+            container.style.transform = `translateX(${translateX}vw)`;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlideIndex === 1;
+            document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides;
+            
+            // Update dots
+            const dots = document.getElementsByClassName('dot');
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            dots[currentSlideIndex - 1].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            currentSlideIndex += n;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Initialize
+        showSlide(currentSlideIndex);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+            if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeSlide(1);  // Swipe left = next
+            if (touchEndX > touchStartX + 50) changeSlide(-1); // Swipe right = previous
+        }
+    </script>
+</body>
+</html>
