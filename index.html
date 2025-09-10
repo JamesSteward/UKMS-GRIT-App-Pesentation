@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRIT App - UK Market Sizing Analysis</title>
     <meta name="description" content="Comprehensive market analysis for GRIT App's UK primary school rollout targeting Years 5-6 children preparing for secondary transition">
+    
+    <!-- Google Fonts - Roboto Slab Bold -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -19,9 +25,11 @@
             overflow: hidden;
         }
 
-        h1, h2, h3, h4 {
+        /* Force Roboto Slab on ALL headings */
+        h1, h2, h3, h4, .slide h1, .slide h2, .slide h3, .slide h4 {
             font-family: 'Roboto Slab', serif !important;
             font-weight: 700 !important;
+            color: white !important;
         }
 
         .slide-container {
@@ -57,10 +65,17 @@
             font-weight: 600;
         }
 
+        .ukms-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            z-index: 100;
+        }
+
         h1 {
             font-size: 3.5rem;
-            font-weight: 700;
-            color: white;
             margin-bottom: 30px;
             text-align: center;
             line-height: 1.2;
@@ -68,8 +83,6 @@
 
         h2 {
             font-size: 2.8rem;
-            font-weight: 600;
-            color: white;
             margin-bottom: 40px;
             text-align: center;
             line-height: 1.3;
@@ -77,8 +90,6 @@
 
         h3 {
             font-size: 1.8rem;
-            font-weight: 600;
-            color: white;
             margin-bottom: 20px;
         }
 
@@ -219,10 +230,10 @@
         }
 
         .breakdown-section h4 {
-            font-family: 'Roboto Slab', serif;
+            font-family: 'Roboto Slab', serif !important;
             font-size: 1.4rem;
-            font-weight: 700;
-            color: white;
+            font-weight: 700 !important;
+            color: white !important;
             margin-bottom: 20px;
         }
 
@@ -246,8 +257,10 @@
         }
 
         .highlight-box h3 {
-            color: white;
+            color: white !important;
             margin-bottom: 15px;
+            font-family: 'Roboto Slab', serif !important;
+            font-weight: 700 !important;
         }
 
         .highlight-box p {
@@ -315,6 +328,11 @@
                 order: -1;
                 margin-bottom: 15px;
             }
+
+            .ukms-logo {
+                width: 60px;
+                height: 60px;
+            }
         }
 
         @media print {
@@ -348,6 +366,7 @@
         <!-- Slide 1: Title -->
         <div class="slide">
             <div class="slide-number">1/6</div>
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo" class="ukms-logo">
             <h1>GRIT App</h1>
             <p class="subtitle">UK Market Sizing Analysis<br>Primary School Readiness for Secondary Transition</p>
             <div class="highlight-box">
@@ -359,6 +378,7 @@
         <!-- Slide 2: Market Overview -->
         <div class="slide">
             <div class="slide-number">2/6</div>
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo" class="ukms-logo">
             <h2>UK Primary Education Market</h2>
             <div class="key-stats">
                 <div class="stat-box">
@@ -384,6 +404,7 @@
         <!-- Slide 3: Target Market -->
         <div class="slide">
             <div class="slide-number">3/6</div>
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo" class="ukms-logo">
             <h2>GRIT App Target Market</h2>
             <p class="subtitle">Focus: Key Stage 2, Years 5-6 (Ages 9-11)</p>
             <div class="key-stats">
@@ -409,6 +430,7 @@
         <!-- Slide 4: Extended Market -->
         <div class="slide">
             <div class="slide-number">4/6</div>
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo" class="ukms-logo">
             <h2>Extended Market Opportunity</h2>
             <div class="market-breakdown">
                 <div class="breakdown-section">
@@ -440,6 +462,7 @@
         <!-- Slide 5: Strategic Advantages -->
         <div class="slide">
             <div class="slide-number">5/6</div>
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo" class="ukms-logo">
             <h2>Strategic Market Advantages</h2>
             <ul class="bullet-points">
                 <li><strong>Highly Targeted Market:</strong> Clear focus on Years 5-6 transition preparation</li>
