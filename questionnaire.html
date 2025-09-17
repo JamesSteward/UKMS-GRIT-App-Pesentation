@@ -23,7 +23,6 @@
             max-width: 900px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
@@ -33,6 +32,11 @@
             color: white;
             padding: 30px;
             text-align: center;
+        }
+        
+        .header img {
+            max-height: 60px;
+            margin-bottom: 15px;
         }
         
         .header h1 {
@@ -53,7 +57,6 @@
         .intro-text {
             background: #f8f9fa;
             padding: 20px;
-            border-radius: 10px;
             margin-bottom: 30px;
             border-left: 4px solid #032717;
         }
@@ -79,7 +82,6 @@
         .jms-answer {
             background: #fff8e7;
             padding: 15px;
-            border-radius: 8px;
             margin-bottom: 15px;
             border-left: 3px solid #d4af37;
         }
@@ -111,7 +113,6 @@
             width: 100%;
             padding: 15px;
             border: 2px solid #ecf0f1;
-            border-radius: 10px;
             font-size: 16px;
             transition: all 0.3s ease;
             background: white;
@@ -130,7 +131,6 @@
             color: white;
             padding: 18px 40px;
             border: none;
-            border-radius: 10px;
             font-size: 1.2em;
             font-weight: 600;
             cursor: pointer;
@@ -157,7 +157,6 @@
             color: white;
             padding: 20px;
             text-align: center;
-            border-radius: 10px;
             margin-top: 20px;
         }
         
@@ -183,13 +182,14 @@
 <body>
     <div class="container">
         <div class="header">
+            <img src="https://www.ukmilitaryschool.com/images/media/uploads/2022/06/22/1655910539-1255322058-medium.png" alt="UKMS Logo">
             <h1>GRIT App Strategic Assessment</h1>
             <p>I've filled in my initial answers below - please review and add your input</p>
         </div>
         
         <div class="form-container">
             <div class="intro-text">
-                <strong>Purpose:</strong> I've answered these questions about the GRIT App to help evaluate our market positioning, technical requirements, and growth strategy. I'd appreciate if you could review my responses and add your own insights - this will help me complete the presentation deck and solve technical issues more efficiently.
+                <strong>Purpose:</strong> I've answered these key questions about the GRIT App to help evaluate our market positioning, technical requirements, and growth strategy. I'd appreciate if you could review my responses and add your own insights - this will help me complete the presentation deck and solve technical issues more efficiently.
             </div>
             
             <form id="clientForm" action="https://formspree.io/f/meolwzol" method="POST">
@@ -246,7 +246,7 @@
                     <div class="question">Q: What data do you have on customer retention and churn rates?</div>
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
-                        <div class="answer-text">Currently unknown - this will be measured during beta phase, WF to provide historic data for wider UKMS.</div>
+                        <div class="answer-text">Currently unknown - this will be measured during beta phase, WR to provide historic data for wider UKMS.</div>
                     </div>
                     <div class="form-group">
                         <label for="q5">WF A:</label>
@@ -282,7 +282,7 @@
                     <div class="question">Q: What's the quantifiable value proposition for schools?</div>
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
-                        <div class="answer-text">Primary value: on-site UKMS staff plus 9 days of premium programming for top-tier subscriptions. Enhanced with gamification, instructional videos, rewards system, and annual GRIT Awards ceremony.</div>
+                        <div class="answer-text">Primary value: on-site UKMS mentors plus 9 days of premium programming for top-tier subscriptions. Enhanced with gamification, instructional videos, rewards system, and annual GRIT Awards ceremony.</div>
                     </div>
                     <div class="form-group">
                         <label for="q8">WF A:</label>
@@ -330,7 +330,7 @@
                     <div class="question">Q: What's your technical development and IP ownership structure?</div>
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
-                        <div class="answer-text">Internal project/product management with European development team. All intellectual property owned by UKMS, ensuring full control and scalability.</div>
+                        <div class="answer-text">Internal project management with European development team. All intellectual property owned by UKMS, ensuring full control and scalability.</div>
                     </div>
                     <div class="form-group">
                         <label for="q12">WF A:</label>
@@ -354,7 +354,7 @@
                     <div class="question">Q: How do you ensure GDPR compliance and child safeguarding?</div>
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
-                        <div class="answer-text">Full compliance achieved through zero collection of children's personal data. All reporting anonymised, with schools maintaining data ownership/stewardship.</div>
+                        <div class="answer-text">Full compliance achieved through zero collection of children's personal data. All reporting anonymised, with schools maintaining data ownership.</div>
                     </div>
                     <div class="form-group">
                         <label for="q14">WF A:</label>
@@ -363,7 +363,7 @@
                 </div>
 
                 <div class="question-block">
-                    <div class="question">Q: How do you balance data anonymisation with personalised user experience?</div>
+                    <div class="question">Q: How do you balance data anonymization with personalised user experience?</div>
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
                         <div class="answer-text">Integration with existing Google Education accounts that schools already manage, maintaining personalisation without direct data collection.</div>
@@ -374,9 +374,54 @@
                     </div>
                 </div>
 
+                <div class="question-block">
+                    <div class="question">Q: What are your ongoing technical integration and maintenance costs?</div>
+                    <div class="jms-answer">
+                        <div class="label">JMS A:</div>
+                        <div class="answer-text">Annual budget: £60k for new integrations, £40k for maintenance and updates. Total £100k yearly technical investment.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="q16">WR A:</label>
+                        <textarea id="q16" name="maintenance_costs" placeholder="Your response and additional insights..."></textarea>
+                    </div>
+                </div>
 
                 <div class="question-block">
-                    <div class="question">Q: What's your current valuation and investment structure?</div>
+                    <div class="question">Q: What's your infrastructure scalability plan and load testing status?</div>
+                    <div class="jms-answer">
+                        <div class="label">JMS A:</div>
+                        <div class="answer-text">AWS-based scaling architecture planned. Load testing data pending - specific performance metrics to be provided.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="q17">WR A:</label>
+                        <textarea id="q17" name="infrastructure_scalability" placeholder="Your response and additional insights..."></textarea>
+                    </div>
+                </div>
+                <div class="question-block">
+                    <div class="question">Q: What are your ongoing technical integration and maintenance costs?</div>
+                    <div class="jms-answer">
+                        <div class="label">JMS A:</div>
+                        <div class="answer-text">Annual budget: £60k for new integrations, £40k for maintenance and updates. Total £100k yearly technical investment.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="q16">WF A:</label>
+                        <textarea id="q16" name="maintenance_costs" placeholder="Your response and additional insights..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question">Q: What's your infrastructure scalability plan and load testing status?</div>
+                    <div class="jms-answer">
+                        <div class="label">JMS A:</div>
+                        <div class="answer-text">AWS-based scaling architecture planned. Load testing data pending - specific performance metrics to be provided.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="q17">WF A:</label>
+                        <textarea id="q17" name="infrastructure_scalability" placeholder="Your response and additional insights..."></textarea>
+                    </div>
+                </div>
+
+
                     <div class="jms-answer">
                         <div class="label">JMS A:</div>
                         <div class="answer-text">£6m pre-money valuation, seeking £300k investment for 5% equity stake.</div>
@@ -411,11 +456,11 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">SUBMIT</button>
+                <button type="submit" class="submit-btn">Submit</button>
                 
                 <div class="success-message" id="successMessage">
-                    <h3>Cheers Mate!</h3>
-                    <p>Your strategic assessment has been submitted successfully. I'll review your input and incorporate it into the deck.</p>
+                    <h3>Thank you!</h3>
+                    <p>Your strategic assessment has been submitted successfully. We'll review your input and incorporate it into our planning.</p>
                 </div>
             </form>
         </div>
