@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRIT App - Pivotal Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .header {
+            background: #2e7bcf;
+            color: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #1e5b9f;
+        }
+
+        .project-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .project-meta {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .epic-section {
+            margin-bottom: 24px;
+        }
+
+        .epic-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2e7bcf;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .epic-meta {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .stories-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .iteration {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .iteration-header {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .story-card {
+            border-bottom: 1px solid #eee;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .story-card:hover {
+            background: #f8f9fa;
+        }
+
+        .story-card:last-child {
+            border-bottom: none;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .story-title {
+            font-weight: 600;
+            font-size: 13px;
+            flex: 1;
+            margin-right: 12px;
+        }
+
+        .story-points {
+            background: #4CAF50;
+            color: white;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .story-points.feature { background: #4CAF50; }
+        .story-points.bug { background: #f44336; }
+        .story-points.chore { background: #ff9800; }
+
+        .story-type {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .story-description {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .story-labels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .label {
+            background: #e1f5fe;
+            color: #0277bd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .label.safety-critical { background: #ffebee; color: #c62828; }
+        .label.frontend { background: #e8f5e8; color: #2e7d32; }
+        .label.backend { background: #fff3e0; color: #ef6c00; }
+        .label.ai-integration { background: #f3e5f5; color: #7b1fa2; }
+
+        .story-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .story-owner {
+            font-weight: 500;
+        }
+
+        .story-state {
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .state-unstarted { background: #f5f5f5; color: #666; }
+        .state-started { background: #fff3cd; color: #856404; }
+        .state-finished { background: #d4edda; color: #155724; }
+        .state-delivered { background: #cce5ff; color: #004085; }
+
+        .blocked {
+            border-left: 4px solid #f44336;
+        }
+
+        .acceptance-criteria {
+            margin-top: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .acceptance-criteria ul {
+            margin-left: 16px;
+        }
+
+        .acceptance-criteria li {
+            margin-bottom: 2px;
+        }
+
+        .stats {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="project-name">GRIT App - Character Development Platform</div>
+        <div class="project-meta">Iteration 1 • 5 stories • 28 points</div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="epic-section">
+                <div class="epic-title">📚 Shoelace Tying Task</div>
+                <div class="epic-meta">5 stories • 28 points</div>
+                <div class="stats">
+                    Unstarted: 3<br>
+                    Started: 1<br>
+                    Finished: 1<br>
+                    Delivered: 0
+                </div>
+            </div>
+
+            <div class="epic-section">
+                <div class="epic-title">🔧 Technical Foundation</div>
+                <div class="epic-meta">2 stories • 16 points</div>
+            </div>
+        </div>
+
+        <div class="stories-container">
+            <div class="iteration">
+                <div class="iteration-header">
+                    Current Iteration • Started Feb 17, 2025
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">FEATURE</div>
+                            <div class="story-title">Student can view step-by-step shoelace tying instructions</div>
+                        </div>
+                        <div class="story-points feature">3</div>
+                    </div>
+                    <div class="story-description">
+                        As a student, I want to view step-by-step shoelace tying instructions so that I can learn the proper technique
+                    </div>
+                    <div class="story-labels">
+                        <span class="label frontend">frontend</span>
+                        <span class="label">student-interface</span>
+                    </div>
+                    <div class="acceptance-criteria">
+                        <strong>Acceptance Criteria:</strong>
+                        <ul>
+                            <li>Display numbered steps (1-6) for shoelace tying</li>
+                            <li>Include simple illustrations for each step</li>
+                            <li>Text should be age-appropriate for 5-11 year olds</li>
+                            <li>Navigation between steps with next/previous buttons</li>
+                        </ul>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Sarah Chen (Frontend)</span>
+                        <span class="story-state state-finished">Finished</span>
+                    </div>
+                </div>
+
+                <div class="story-card blocked">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">FEATURE</div>
+                            <div class="story-title">Student can ask cartoon character questions about shoelace tying</div>
+                        </div>
+                        <div class="story-points feature">8</div>
+                    </div>
+                    <div class="story-description">
+                        As a student, I want to ask the cartoon character questions about tying shoelaces so that I can get help when I'm stuck
+                    </div>
+                    <div class="story-labels">
+                        <span class="label ai-integration">ai-integration</span>
+                        <span class="label safety-critical">safety-critical</span>
+                    </div>
+                    <div class="acceptance-criteria">
+                        <strong>Acceptance Criteria:</strong>
+                        <ul>
+                            <li>Cartoon character displays with speech bubble interface</li>
+                            <li>Student can type questions in text input field</li>
+                            <li>AI responds with shoelace-specific guidance only</li>
+                            <li>Responses are filtered for age-appropriateness</li>
+                            <li>All interactions logged for safety monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Alex Kumar (Backend)</span>
+                        <span class="story-state state-started">Started</span>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">FEATURE</div>
+                            <div class="story-title">Teacher can verify student shoelace tying completion</div>
+                        </div>
+                        <div class="story-points feature">5</div>
+                    </div>
+                    <div class="story-description">
+                        As a teacher, I want to verify student shoelace tying completion so that I can track their progress
+                    </div>
+                    <div class="story-labels">
+                        <span class="label frontend">teacher-dashboard</span>
+                        <span class="label">verification</span>
+                    </div>
+                    <div class="acceptance-criteria">
+                        <strong>Acceptance Criteria:</strong>
+                        <ul>
+                            <li>Teacher dashboard shows students attempting task</li>
+                            <li>One-click "Mark Complete" button per student</li>
+                            <li>Optional notes field for teacher observations</li>
+                            <li>Completion timestamp recorded</li>
+                        </ul>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Sarah Chen (Frontend)</span>
+                        <span class="story-state state-unstarted">Unstarted</span>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">FEATURE</div>
+                            <div class="story-title">Student can see task completion status</div>
+                        </div>
+                        <div class="story-points feature">2</div>
+                    </div>
+                    <div class="story-description">
+                        As a student, I want to see my task completion status so that I know if I've finished successfully
+                    </div>
+                    <div class="story-labels">
+                        <span class="label frontend">student-interface</span>
+                        <span class="label">progress-tracking</span>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Sarah Chen (Frontend)</span>
+                        <span class="story-state state-unstarted">Unstarted</span>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">CHORE</div>
+                            <div class="story-title">AI Safety Monitoring System</div>
+                        </div>
+                        <div class="story-points chore">5</div>
+                    </div>
+                    <div class="story-description">
+                        As a system administrator, I want to log all AI interactions so that we can ensure safe conversations
+                    </div>
+                    <div class="story-labels">
+                        <span class="label safety-critical">safety-critical</span>
+                        <span class="label backend">admin-tools</span>
+                        <span class="label">logging</span>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Alex Kumar (Backend)</span>
+                        <span class="story-state state-unstarted">Unstarted</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="iteration">
+                <div class="iteration-header">
+                    Backlog • Technical Foundation
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">CHORE</div>
+                            <div class="story-title">Configure AI model for shoelace-specific responses</div>
+                        </div>
+                        <div class="story-points chore">13</div>
+                    </div>
+                    <div class="story-description">
+                        Fine-tune DeepSeek model on shoelace instruction dataset with domain restrictions
+                    </div>
+                    <div class="story-labels">
+                        <span class="label ai-integration">ai-model</span>
+                        <span class="label backend">backend</span>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Dr. Raj Patel (AI Engineer)</span>
+                        <span class="story-state state-unstarted">Unstarted</span>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <div class="story-type">CHORE</div>
+                            <div class="story-title">Create database schema for task tracking</div>
+                        </div>
+                        <div class="story-points chore">3</div>
+                    </div>
+                    <div class="story-description">
+                        Database tables for students, tasks, completions, and teacher verifications
+                    </div>
+                    <div class="story-labels">
+                        <span class="label backend">database</span>
+                        <span class="label backend">backend</span>
+                    </div>
+                    <div class="story-meta">
+                        <span class="story-owner">Alex Kumar (Backend)</span>
+                        <span class="story-state state-unstarted">Unstarted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
