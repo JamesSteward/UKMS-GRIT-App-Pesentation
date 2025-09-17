@@ -470,8 +470,9 @@
         document.getElementById('clientForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Disable submit button
+            // Disable submit button and show submitting state
             const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
             
@@ -493,15 +494,19 @@
                     document.getElementById('successMessage').style.display = 'block';
                     this.style.display = 'none';
                 } else {
+                    // Handle error response
+                    const errorData = await response.json();
+                    console.error('Formspree error:', errorData);
                     throw new Error('Submission failed');
                 }
             } catch (error) {
-                // Show error message
+                console.error('Submission error:', error);
+                // Show error message and restore button
                 submitBtn.textContent = 'Submission Failed - Please Try Again';
                 submitBtn.style.background = '#e74c3c';
                 setTimeout(() => {
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit';
+                    submitBtn.textContent = originalText;
                     submitBtn.style.background = '#032717';
                 }, 3000);
             }
